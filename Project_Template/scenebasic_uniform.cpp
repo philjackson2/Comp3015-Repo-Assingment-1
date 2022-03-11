@@ -10,13 +10,15 @@ using std::string;
 using std::cerr;
 using std::endl;
 
-
+#include <glm/gtc/matrix_transform.hpp>
+using glm::vec3;
+using glm::mat4;
 
 #include "helper/glutils.h"
 
 using glm::vec3;
 
-SceneBasic_Uniform::SceneBasic_Uniform() : angle(0.0f) {}
+SceneBasic_Uniform::SceneBasic_Uniform() : tr (0.7f, 0.3f, 30, 30) {}
 
 void SceneBasic_Uniform::initScene()
 {
