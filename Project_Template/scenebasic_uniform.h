@@ -14,9 +14,9 @@
 class SceneBasic_Uniform : public Scene
 {
 private:
-    //GLuint vaoHandle;
+    GLuint vaoHandle;
     GLSLProgram prog;
-    //float angle;
+    float angle;
     glm::mat4 rotationMatrix;
     Torus setMatrices();//is this right? i dont know i am hoping
     void compile();
