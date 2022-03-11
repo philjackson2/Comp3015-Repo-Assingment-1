@@ -10,11 +10,15 @@ using std::string;
 using std::cerr;
 using std::endl;
 
+#include <glm/gtc/matrix_transform.hpp>
+using glm::vec3;
+using glm::mat4;
+
 #include "helper/glutils.h"
 
 using glm::vec3;
 
-SceneBasic_Uniform::SceneBasic_Uniform() : angle(0.0f) {}
+SceneBasic_Uniform::SceneBasic_Uniform() : Torus(0.0f) {}
 
 void SceneBasic_Uniform::initScene()
 {
@@ -89,10 +93,10 @@ void SceneBasic_Uniform::update( float t )
 	//update your angle here
 
     if (m_animate) {
-        angle += 0.1f;
+        Torus += 0.1f;
 
-        if (angle >= 360.0f)
-            angle -= 360.0f; 
+        if (Torus >= 360.0f)
+            Torus -= 360.0f; 
     }
 }
 
@@ -104,7 +108,7 @@ void SceneBasic_Uniform::render()
     GLuint location = glGetUniformLocation(programHandle, "RotationMatrix");
     
     //create the rotation matrix here and update the uniform in the shader
-    rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, vec3(0.0f, 0.0f, 1.0f)); 
+    rotationMatrix = glm::rotate(glm::mat4(1.0f), Torus, vec3(0.0f, 0.0f, 1.0f)); 
     glUniformMatrix4fv(location, 1, GL_FALSE, &rotationMatrix[0][0]);
 
     glUniformMatrix4fv(location, 1, GL_FALSE, & rotationMatrix[0][0]);
