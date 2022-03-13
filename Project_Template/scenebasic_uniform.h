@@ -22,6 +22,7 @@ private:
     void setMatrices();
     void compile();
 
+
 public:
     SceneBasic_Uniform();
 
