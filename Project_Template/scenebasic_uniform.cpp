@@ -36,6 +36,10 @@ void SceneBasic_Uniform::initScene()
     prog.setUniform("LightPosition", view *
         glm::vec4(5.0f, 5.0f, 2.0f, 1.0f));
 
+    prog.setUniform("Kd", vec3(1.0f, 0.8f, 0.9f));
+    prog.setUniform("Ld", vec3(0.6f));
+
+
 
 }
 
@@ -93,3 +97,6 @@ void SceneBasic_Uniform::resize(int w, int h)
         0.3f, 100.0f);
 
 }
+
+
+
