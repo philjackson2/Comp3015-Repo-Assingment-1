@@ -18,7 +18,7 @@ using glm::mat4;
 
 using glm::vec3;
 
-SceneBasic_Uniform::SceneBasic_Uniform() : tr (0.7f, 0.3f, 30, 30) {}
+SceneBasic_Uniform::SceneBasic_Uniform() : tr(0.7f, 0.3f, 30, 30) {}
 
 void SceneBasic_Uniform::initScene()
 {
@@ -35,6 +35,7 @@ void SceneBasic_Uniform::initScene()
 
     prog.setUniform("LightPosition", view *
         glm::vec4(5.0f, 5.0f, 2.0f, 1.0f));
+
 
 }
 
