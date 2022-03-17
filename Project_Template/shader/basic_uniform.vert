@@ -14,7 +14,7 @@ in vec3 VertexNormal;
 out vec3 LightIntensity;
 
 
-uniform vec4 lightPosition; 
+uniform vec4 LightPosition; 
 
 uniform vec3 Kd;
 
@@ -34,9 +34,9 @@ void main()
 
     vec3 n = normalize( NormalMatrix * VertexNormal);
 
-    lightPosition = (ModelViewMatrix * vec4(VertexPosition,1.0));
+    LightPosition = normalize (ModelViewMatrix * vec4(VertexPosition,1.0));
 
-    vec4 direction = normalize (lightPosition - VertexPosition);
+    vec4 direction = normalize (LightPosition - VertexPosition);
 
    
    float LightIntensity = max(dot( direction,n), 0.0);
