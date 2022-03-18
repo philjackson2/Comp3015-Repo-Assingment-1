@@ -37,53 +37,64 @@ uniform mat4 MVP;				//model view projection matrix
 
  
 
- vec3 phongModel( int light, vec3 position, vec3 n ) {
+ vec3 phongModel( int light, vec4 position, vec3 n ) {
  
  //calcute ambient light to access each light la value
- Lights[light].la; 
- vec3 ambient = ;
+  vec3 ambient = Lights[light].La * Material.Ka;
  
  //calculate diffuse here 
 
- vec3 s = ... //find out s vector 
+ vec3 s = normalize(vec3(Lights[light].Position) -VertexPosition);
 
- float SDotN = ... //calculate dot product between s & n 
-vec3 diffuse = Material.Kd 8 sDotN;
+ float SDotN = max(dot(s, n),0.0);
+
+vec3 diffuse = Material.Kd * SDotN;
 //calculate specular here
 vec3 spec = vec3(0.0); 
 
-if( sDotN . 0.0 )
+if( SDotN > 0.0 )
 {
 vec3 v = normalize(-position.xyz);
 vec3 r = reflect( -s, n ); 
 spec = Material.Ks *pow( max ( dot(r,v), 0.0 ), 
 Material.Shininess );
 }
- return ambient + lights[light].L * (diffuse + spec); 
+ return ambient + Lights[light].L * (diffuse + spec); 
  }
 
 
 void main() 
 { 
   //transfrom normal from model coordinates to view coordinates
+
+
+  
   vec3 n = normalize( NormalMatrix * VertexNormal);
+  vec4 coords = ModelViewMatrix * vec4(VertexPosition, 1.0);
+
+  Colour = vec3(0.0);
+for( int i = 0; i < 3; i++ )
+{
+Colour += phongModel( i, coords, n );
+}
+
 
   //transform vertex position from model coordinates to view coordinates
-  vec4 pos = ModelViewMatrix * vec4(VertexPosition,1.0);
-
-  //calculate light direction, notice the light is already in the view coordinates 
-  vec3 s = normalize(vec3(Lights#.Position - pos));
-
-  //calculate dot product for vector s and n using max. Read about max in glsl documentation, if not clear talk to me
-  float sDotN = max( dot(s,n), 0.0 );
-
-  //difuse formula for light calculations
-  vec3 diffuse = Light.Ld * Material.Kd * sDotN;
+//  vec4 pos = ModelViewMatrix * vec4(VertexPosition,1.0);
+//
+//  //calculate light direction, notice the light is already in the view coordinates 
+//  vec3 s = normalize(vec3(Lights#.Position - pos));
+//
+//  //calculate dot product for vector s and n using max. Read about max in glsl documentation, if not clear talk to me
+//  float sDotN = max( dot(s,n), 0.0 );
+//
+//  //difuse formula for light calculations
+//  vec3 diffuse = Light.Ld * Material.Kd * sDotN;
 
   //pass the colour to LightIntensity which will transfer it to the fragment shader
-  LightIntensity = diffuse;
+//  LightIntensity = diffuse;
 
   //turns any vertex position into model view projection in preparations to 
   //graphics pipeline processes before fragment shader (clipping)
-  gl_Position = MVP * vec4(VertexPosition,1.0); 
+  gl_Position = MVP * vec4(VertexPosition,1.0) ; //*RotationMatrix for roating
 } 
