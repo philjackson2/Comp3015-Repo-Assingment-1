@@ -11,7 +11,7 @@ using glm::vec3;
 using glm::mat4;
 
 //constructor for torus
-SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 100, 100)
+SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 100, 100), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
     mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
         true);
@@ -113,6 +113,9 @@ void SceneBasic_Uniform::render()
     model = glm::translate(model, vec3(0.0f, -0.45f, 0.0f));
     setMatrices();
     plane.render();
+
+
+   // vec3 cameraPos = vec3(7.0f * cos(angle). 2.0f, 7.0f * sin(angle));
 
 }
 

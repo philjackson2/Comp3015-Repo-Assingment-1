@@ -16,7 +16,9 @@ class SceneBasic_Uniform : public Scene
 {
 private:
     GLSLProgram prog;
-    
+
+
+    float angle, tPrev, rotSpeed;
    // Torus torus;
     //Teapot teapot;
 
