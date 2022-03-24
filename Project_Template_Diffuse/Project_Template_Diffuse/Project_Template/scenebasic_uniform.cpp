@@ -41,6 +41,10 @@ void SceneBasic_Uniform::initScene()
             1.0f, 1.0f));
     }
 
+
+
+
+
     prog.setUniform("Lights[0].L", vec3(0.0f, 0.0f, 0.8f));
     prog.setUniform("Lights[1].L", vec3(0.0f, 0.8f, 0.0f));
     prog.setUniform("Lights[2].L", vec3(0.8f, 0.0f, 0.0f));
