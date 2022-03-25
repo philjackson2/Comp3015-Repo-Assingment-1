@@ -11,10 +11,13 @@ using glm::vec3;
 using glm::mat4;
 
 //constructor for torus
-SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 100, 100), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
+SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
     mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
         true);
+    mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/cube.obj",
+        true);
+    
 }
 
 
@@ -88,7 +91,14 @@ void SceneBasic_Uniform::compile()
 
 void SceneBasic_Uniform::update( float t )
 {
-	//update your angle here
+    float deltaT = t - tPrev;
+    if (tPrev == 0.0f)
+        deltaT = 0.0f;
+    tPrev = t;
+    angle += rotSpeed * deltaT;
+    if (angle > glm::two_pi<float>())
+        angle -= glm::two_pi<float>();
+
 }
 
 void SceneBasic_Uniform::render()
@@ -115,8 +125,10 @@ void SceneBasic_Uniform::render()
     plane.render();
 
 
-    vec3 cameraPos = vec3(7.0f * cos(angle). 2.0f, 7.0f * sin(angle));
-    view = glm::lookAt(cameraPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f. 0.0f));
+    vec3 cameraPos = vec3(7.0f * cos(angle), 2.0f, 7.0f * sin(angle));
+    view = glm::lookAt(cameraPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f,
+        0.0f));
+
 }
 
 void SceneBasic_Uniform::setMatrices()
