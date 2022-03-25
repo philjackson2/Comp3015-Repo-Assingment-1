@@ -115,8 +115,8 @@ void SceneBasic_Uniform::render()
     plane.render();
 
 
-   // vec3 cameraPos = vec3(7.0f * cos(angle). 2.0f, 7.0f * sin(angle));
-
+    vec3 cameraPos = vec3(7.0f * cos(angle). 2.0f, 7.0f * sin(angle));
+    view = glm::lookAt(cameraPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f. 0.0f));
 }
 
 void SceneBasic_Uniform::setMatrices()
