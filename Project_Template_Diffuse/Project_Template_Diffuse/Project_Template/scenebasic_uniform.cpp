@@ -13,10 +13,12 @@ using glm::mat4;
 //constructor for torus
 SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
-    mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
-        true);
+    
     mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/cube.obj",
         true);
+    mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
+        true);
+    
     
 }
 
