@@ -10,6 +10,7 @@ using std::endl;
 using glm::vec3;
 using glm::mat4;
 
+#include "helper/texture.h"
 //constructor for torus
 SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
@@ -47,7 +48,10 @@ void SceneBasic_Uniform::initScene()
     }
 
 
-
+    glEnable(GL_DEPTH_TEST);
+    view = glm::lookAt(vec3(1.0f, 1.25f, 1.25f), vec3(0.0f, 0.0f, 0.0f),
+        vec3(0.0f, 1.0f, 0.0f));
+    projection = mat4(1.0f);
 
 
     prog.setUniform("Lights[0].L", vec3(0.0f, 0.0f, 0.8f));
@@ -56,7 +60,14 @@ void SceneBasic_Uniform::initScene()
     prog.setUniform("Lights[0].La", vec3(0.0f, 0.0f, 0.8f));
     prog.setUniform("Lights[1].La", vec3(0.0f, 0.8f, 0.0f));
     prog.setUniform("Lights[2].La", vec3(0.8f, 0.0f, 0.0f));
-   
+    prog.setUniform("light.l", vec3(0.9, 0.9, 0.9));
+    prog.setUniform("light.la", vec3(0.6, 0.4, 0.3));
+
+    GLuint texID =
+        Texture::loadTexture("media/texture/brick1.jpg");
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texID);
+
     ////initialise the model matrix
     //model = mat4(1.0f);
     //
@@ -108,7 +119,7 @@ void SceneBasic_Uniform::render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     
-
+    prog.setUniform("light.position", vec3(0.0, 1.0, 0.0));
     prog.setUniform("Material.Kd", 0.4f, 0.4f, 0.4f);
     prog.setUniform("Material.Ks", 0.9f, 0.9f, 0.9f);
     prog.setUniform("Material.Ka", 0.5f, 0.5f, 0.5f);

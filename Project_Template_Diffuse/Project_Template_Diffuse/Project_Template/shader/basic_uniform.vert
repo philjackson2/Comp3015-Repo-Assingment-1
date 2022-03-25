@@ -10,7 +10,8 @@ layout (location = 2) in vec2 VetrexTexCoord;
 out vec3 LightIntensity;
 out vec3 Colour;
 out vec2 TexCoord;
-
+out vec3 Position;
+out vec3 Normal;
 
  
  //light information struct
@@ -38,7 +39,7 @@ uniform mat4 MVP;				//model view projection matrix
 
  
 
- vec3 phongModel( int light, vec4 position, vec3 n ) {
+ vec3 phongModel( int light, vec3 position, vec3 n ) {
  
  //calcute ambient light to access each light la value
   vec3 ambient = Lights[light].La * Material.Ka;
@@ -67,16 +68,16 @@ Material.Shininess );
 void main() 
 { 
   //transfrom normal from model coordinates to view coordinates
-
+  TexCoord = VetrexTexCoord;
 
   
-  vec3 n = normalize( NormalMatrix * VertexNormal);
-  vec4 coords = ModelViewMatrix * vec4(VertexPosition, 1.0);
+   Normal = normalize( NormalMatrix * VertexNormal);
+   Position = (ModelViewMatrix * vec4(VertexPosition, 1.0)).xyz;
 
   Colour = vec3(0.0);
 for( int i = 0; i < 3; i++ )
 {
-Colour += phongModel( i, coords, n );
+Colour += phongModel( i, Position, Normal );
 }
 
 
