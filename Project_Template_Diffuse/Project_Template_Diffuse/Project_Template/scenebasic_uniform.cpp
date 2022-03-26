@@ -12,6 +12,7 @@ using glm::mat4;
 
 #include "helper/texture.h"
 #include "GLFW/glfw3.h"
+#include "helper/scenerunner.h"
 
 
 
@@ -22,9 +23,9 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //defining controls for camera
 SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
     
-    mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/cube.obj",
+    cube = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/cube.obj",
         true);
-    mesh = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
+    pig = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
         true);
     
     
@@ -32,17 +33,17 @@ SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angl
 
 
 
-void processInput(GLFWwindow* window)
+void processInput(GLFWwindow* Scene)
 {
     
         const float cameraSpeed = 0.05f; // adjust accordingly
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(Scene, GLFW_KEY_W) == GLFW_PRESS)
         cameraPos += cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (glfwGetKey(Scene, GLFW_KEY_S) == GLFW_PRESS)
         cameraPos -= cameraSpeed * cameraFront;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (glfwGetKey(Scene, GLFW_KEY_A) == GLFW_PRESS)
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (glfwGetKey(Scene, GLFW_KEY_D) == GLFW_PRESS)
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
@@ -149,7 +150,11 @@ void SceneBasic_Uniform::render()
     model = mat4(1.0f);
     model = glm::rotate(model, glm::radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
     setMatrices();
-    mesh->render();
+    pig->render();
+    model = mat4(1.0f);
+    model = glm::rotate(model, glm::radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
+    setMatrices();
+    cube->render();
     prog.setUniform("Material.Kd", 0.1f, 0.1f, 0.1f);
     prog.setUniform("Material.Ks", 0.9f, 0.9f, 0.9f);
     prog.setUniform("Material.Ka", 0.1f, 0.1f, 0.1f);

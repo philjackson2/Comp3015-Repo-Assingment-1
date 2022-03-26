@@ -23,8 +23,8 @@ private:
     //Teapot teapot;
 
     Plane plane; 
-    std::unique_ptr<ObjMesh> mesh; //pig mesh
-
+    std::unique_ptr<ObjMesh> pig; //pig mesh
+    std::unique_ptr<ObjMesh> cube; //for the cube
     void setMatrices();
 
     void compile();
