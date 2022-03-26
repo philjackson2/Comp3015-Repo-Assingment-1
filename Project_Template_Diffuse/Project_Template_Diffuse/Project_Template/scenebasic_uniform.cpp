@@ -23,9 +23,11 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f); //defining controls for camera
 SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angle(0.0f), tPrev(0.0f), rotSpeed(glm::pi<float>() / 8.0f)
 {
     
-    cube = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/cube.obj",
+    cube = ObjMesh::load("media/cube.obj",
         true);
-    pig = ObjMesh::load("C:/Users/phili/OneDrive/Documents/pig/pig_triangulated.obj",
+    pig = ObjMesh::load("media/pig_triangulated.obj",
+        true);
+    wall = ObjMesh::load("media/wall.obj",
         true);
     
     
@@ -153,8 +155,15 @@ void SceneBasic_Uniform::render()
     pig->render();
     model = mat4(1.0f);
     model = glm::rotate(model, glm::radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, vec3(3.0f, 0, 0)); //moving the cube out of the way for the pig to not be inside it 
     setMatrices();
-    cube->render();
+    cube->render();//cube is differently name in the .h file so they are not overwiring eachother
+    model = mat4(1.0f);
+    model = glm::rotate(model, glm::radians(90.0f), vec3(0.0f, 1.0f, 0.0f));
+    model = glm::translate(model, vec3(-3.0f, 0, 0)); //moving the wall
+    setMatrices();
+    wall ->render();//wall is differently name in the .h file so they are not overwiring eachother
+
     prog.setUniform("Material.Kd", 0.1f, 0.1f, 0.1f);
     prog.setUniform("Material.Ks", 0.9f, 0.9f, 0.9f);
     prog.setUniform("Material.Ka", 0.1f, 0.1f, 0.1f);
@@ -164,8 +173,10 @@ void SceneBasic_Uniform::render()
     setMatrices();
     plane.render();
 
+    float x = 2.0f; //declaring values for camera start poistion 
+    float y = 1.0f;
 
-    vec3 cameraPos = vec3(7.0f * cos(angle), 2.0f, 7.0f * sin(angle));
+    vec3 cameraPos = vec3(7.0f * cos(angle),x, y * sin(angle));
     view = glm::lookAt(cameraPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f,
         0.0f));
 
