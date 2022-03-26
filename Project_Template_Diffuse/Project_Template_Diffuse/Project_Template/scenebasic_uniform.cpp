@@ -1,6 +1,7 @@
 #include "scenebasic_uniform.h"
 
 #include <iostream>
+#include <Windows.h>
 
 #include<sstream>
 using std::cerr;
@@ -129,13 +130,31 @@ void SceneBasic_Uniform::compile()
 
 void SceneBasic_Uniform::update( float t )
 {
-    float deltaT = t - tPrev;
-    if (tPrev == 0.0f)
-        deltaT = 0.0f;
-    tPrev = t;
-    angle += rotSpeed * deltaT;
-    if (angle > glm::two_pi<float>())
-        angle -= glm::two_pi<float>();
+
+    float x = 0.0f;
+    if (GetKeyState('A') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
+    {
+        x = 100.f;
+        float deltaT = t - tPrev;
+        if (tPrev == x)
+            deltaT = 10.0f;
+        tPrev = t;
+        angle += rotSpeed * deltaT;
+        if (angle > glm::two_pi<float>())
+            angle -= glm::two_pi<float>();
+   }
+    
+    if (GetKeyState('S') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
+    {
+        
+        float deltaT = t - tPrev;
+        if (tPrev == x)
+            deltaT = 100.0f;
+        tPrev = t;
+        angle += rotSpeed * deltaT;
+        if (angle > glm::two_pi<float>())
+            angle -= glm::two_pi<float>();
+    }
 
 }
 
