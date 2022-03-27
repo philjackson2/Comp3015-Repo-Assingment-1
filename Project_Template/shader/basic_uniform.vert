@@ -81,22 +81,5 @@ Colour += phongModel( i, Position, Normal );
 }
 
 
-  //transform vertex position from model coordinates to view coordinates
-//  vec4 pos = ModelViewMatrix * vec4(VertexPosition,1.0);
-//
-//  //calculate light direction, notice the light is already in the view coordinates 
-//  vec3 s = normalize(vec3(Lights#.Position - pos));
-//
-//  //calculate dot product for vector s and n using max. Read about max in glsl documentation, if not clear talk to me
-//  float sDotN = max( dot(s,n), 0.0 );
-//
-//  //difuse formula for light calculations
-//  vec3 diffuse = Light.Ld * Material.Kd * sDotN;
-
-  //pass the colour to LightIntensity which will transfer it to the fragment shader
-//  LightIntensity = diffuse;
-
-  //turns any vertex position into model view projection in preparations to 
-  //graphics pipeline processes before fragment shader (clipping)
   gl_Position = MVP * vec4(VertexPosition,1.0) ; //*RotationMatrix for roating
 } 

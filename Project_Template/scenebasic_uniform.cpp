@@ -12,7 +12,6 @@ using glm::vec3;
 using glm::mat4;
 
 #include "helper/texture.h"
-#include "GLFW/glfw3.h"
 #include "helper/scenerunner.h"
 
 
@@ -76,7 +75,7 @@ void SceneBasic_Uniform::initScene()
     prog.setUniform("light.la", vec3(0.6, 0.4, 0.3));
 
     GLuint texID =
-        Texture::loadTexture("media/texture/spencer.jpg");
+        Texture::loadTexture("media/texture/brick1.jpg");
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texID);
 
@@ -87,7 +86,7 @@ void SceneBasic_Uniform::compile()
 {
 	try {
 		prog.compileShader("shader/basic_uniform.vert");
-		prog.compileShader("shader/basic_uniform.frag");
+		prog.compileShader("shader/basic_uniform.frag");//here the two shaders are loadead in with the compile 
 		prog.link();
 		prog.use();
 	} catch (GLSLProgramException &e) {
@@ -100,7 +99,7 @@ void SceneBasic_Uniform::update( float t )
 {
     //camera controls using get key states to manipulate the camera
     float x = 0.0f;
-    if (GetKeyState('A') & 0x8000)
+    if (GetKeyState('A') & 0x8000) //0x8000 means it is a short press
     {
         x = 100.f;
         float deltaT = t - tPrev;
@@ -124,6 +123,26 @@ void SceneBasic_Uniform::update( float t )
             angle -= glm::two_pi<float>();
     }
 
+    if (GetKeyState('P') & 0x8000) { //change textures on a button press
+        GLuint texID =
+            Texture::loadTexture("media/texture/spencer.jpg");
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texID);
+    }
+
+    if (GetKeyState('L') & 0x8000) { //change textures on a button press
+        GLuint texID =
+            Texture::loadTexture("media/texture/cement.jpg");
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texID);
+    }
+
+    if (GetKeyState('M') & 0x8000) { //change textures on a button press
+        GLuint texID =
+            Texture::loadTexture("media/texture/brick1.jpg");
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texID);
+    }
 }
 
 void SceneBasic_Uniform::render()
