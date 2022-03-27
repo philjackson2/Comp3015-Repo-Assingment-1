@@ -18,8 +18,7 @@ private:
 
 
     float angle, tPrev, rotSpeed;
-   // Torus torus;
-    //Teapot teapot;
+   
 
     Plane plane; 
     std::unique_ptr<ObjMesh> pig; //pig mesh
