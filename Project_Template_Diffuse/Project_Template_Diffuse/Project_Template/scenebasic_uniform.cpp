@@ -36,22 +36,8 @@ SceneBasic_Uniform::SceneBasic_Uniform() : plane(10.0f, 10.0f, 1000, 1000), angl
 
 
 
-void processInput(GLFWwindow* Scene)
-{
-    
-        const float cameraSpeed = 0.05f; // adjust accordingly
-    if (glfwGetKey(Scene, GLFW_KEY_W) == GLFW_PRESS)
-        cameraPos += cameraSpeed * cameraFront;
-    if (glfwGetKey(Scene, GLFW_KEY_S) == GLFW_PRESS)
-        cameraPos -= cameraSpeed * cameraFront;
-    if (glfwGetKey(Scene, GLFW_KEY_A) == GLFW_PRESS)
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-    if (glfwGetKey(Scene, GLFW_KEY_D) == GLFW_PRESS)
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-}
 
-//constructor for teapot
-//SceneBasic_Uniform::SceneBasic_Uniform() : teapot(13, glm::translate(mat4(1.0f), vec3(0.0f, 1.5f, 0.25f))) {}
+
 
 void SceneBasic_Uniform::initScene()
 {
@@ -130,9 +116,9 @@ void SceneBasic_Uniform::compile()
 
 void SceneBasic_Uniform::update( float t )
 {
-
+    //camera controls using get key states to manipulate the camera
     float x = 0.0f;
-    if (GetKeyState('A') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
+    if (GetKeyState('A') & 0x8000)
     {
         x = 100.f;
         float deltaT = t - tPrev;
@@ -144,10 +130,10 @@ void SceneBasic_Uniform::update( float t )
             angle -= glm::two_pi<float>();
    }
     
-    if (GetKeyState('S') & 0x8000/*Check if high-order bit is set (1 << 15)*/)
+    if (GetKeyState('D') & 0x8000)
     {
         
-        float deltaT = t - tPrev;
+        float deltaT = tPrev - t; //inverted to make it go the other way around 
         if (tPrev == x)
             deltaT = 100.0f;
         tPrev = t;
@@ -195,7 +181,7 @@ void SceneBasic_Uniform::render()
     float x = 2.0f; //declaring values for camera start poistion 
     float y = 1.0f;
 
-    vec3 cameraPos = vec3(7.0f * cos(angle),x, y * sin(angle));
+    vec3 cameraPos = vec3(10.0f * cos(angle),x, y * sin(angle));
     view = glm::lookAt(cameraPos, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f,
         0.0f));
 
