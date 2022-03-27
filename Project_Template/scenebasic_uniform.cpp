@@ -76,29 +76,11 @@ void SceneBasic_Uniform::initScene()
     prog.setUniform("light.la", vec3(0.6, 0.4, 0.3));
 
     GLuint texID =
-        Texture::loadTexture("media/texture/brick1.jpg");
+        Texture::loadTexture("media/texture/spencer.jpg");
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texID);
 
-    ////initialise the model matrix
-    //model = mat4(1.0f);
-    //
-    ////enable this group for torus rendering, make sure you comment the teapot group
-    //model = glm::rotate(model, glm::radians(-35.0f), vec3(1.0f, 0.0f, 0.0f)); //rotate model on x axis
-    //model = glm::rotate(model, glm::radians(15.0f), vec3(0.0f, 1.0f, 0.0f));  //rotate model on y axis
-    //view = glm::lookAt(vec3(0.0f, 0.0f, 2.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)); //sets the view - read in the documentation about glm::lookAt. if still have questions,come an dtalk to me
-
-    ////enable this group for teapot rendering, make sure you comment the torus group
-    ////model = glm::translate(model, vec3(0.0, -1.0, 0.0));
-    ////model = glm::rotate(model, glm::radians(-90.0f), vec3(1.0f, 0.0f, 0.0f));
-    ////view = glm::lookAt(vec3(2.0f, 4.0f, 2.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
-
-    //projection = mat4(1.0f);
-
-    ////make sure you use the correct name, check your vertex shader
-    //prog.setUniform("Material.Kd", 0.2f, 0.55f, 0.9f); //seting the Kd uniform
-    //prog.setUniform("Light.Ld", 1.0f, 1.0f, 1.0f);     //setting the Ld uniform
-    //prog.setUniform("Light.Position", view * glm::vec4(5.0f, 5.0f, 2.0f, 0.0f)); //setting Light Position
+   
 }
 
 void SceneBasic_Uniform::compile()
