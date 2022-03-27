@@ -6,8 +6,7 @@
 #include <glad/glad.h>
 #include "helper/glslprogram.h"
 
-//#include "helper/torus.h"
-#include "helper/teapot.h"
+
 #include <glm/glm.hpp>
 #include "helper/plane.h"
 #include "helper/objmesh.h"
